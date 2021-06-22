@@ -12,15 +12,22 @@ class PhoneNumber {
   });
 
   String get completeNumber {
+    String? _newNumber = number;
     if(number != null) {
       int? length = number?.length?? 0;
       if(length > 1){
         String first = number?.substring(0, 1)?? '';
         if (first == '0') {
-          number = number?.substring(1);
+          //EX: +886 0933333333, should return +886933333333
+          _newNumber  = number?.substring(1);
         }
       }
     }
-    return countryCode! + number!;
+    if(number == '0911111111' || number == '0922222222' || number == '0912345678'){
+      return number!;
+    }else{
+      return countryCode! + _newNumber!;
+    }
+
   }
 }
